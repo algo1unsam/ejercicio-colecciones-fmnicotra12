@@ -1,17 +1,46 @@
 import capos.*
+import artefactos.*
+import castillo.*
 
-test "encontrar artefactos" {
+test "encontrar artefactos en el baul completo de rolando" {
+	rolando.agarrar(collarDivino);
+	rolando.agarrar(libroDeHechizos);
+	rolando.llegaCastillo();
+	rolando.agarrar(espadaDelDestino);
+	
+	assert.that(rolando.encontrarItem(libroDeHechizos))
+	assert.notThat(rolando.encontrarItem(armaduraDeAcero))
 	
 }
 
-test "castillo" {
+test "se guardan los artefactos en el castillo" {
+	rolando.agarrar(collarDivino);
+	rolando.agarrar(libroDeHechizos);
+	rolando.llegaCastillo();
 	
+	assert.that(castillo.getBaul().size() > 0)
 }
 
-test "posesiones" {
+test "cantidad total de elementos que tiene rolando" {
+	rolando.agarrar(collarDivino);
+	rolando.agarrar(libroDeHechizos);
+	rolando.llegaCastillo();
+	rolando.agarrar(espadaDelDestino);
 	
+	assert.equals(rolando.baulCompleto().size(), 3);
 }
 
-test "historia" {
+test "historia de artefactos encontrados" {
+	rolando.agarrar(collarDivino);
+	rolando.agarrar(libroDeHechizos);
+	rolando.agarrar(collarDivino);
+	rolando.agarrar(libroDeHechizos);
+	rolando.agarrar(libroDeHechizos);
+	rolando.agarrar(libroDeHechizos);
 	
+	assert.equals(rolando.getHistorial().get(0), collarDivino);
+	assert.equals(rolando.getHistorial().get(3), libroDeHechizos);
+	assert.equals(rolando.getHistorial().get(5), libroDeHechizos);
+	
+	assert.equals(rolando.getHistorial().size(), 6);
 }
